@@ -1,0 +1,14 @@
+pypdf
+langchain~=0.1.4
+torch
+accelerate
+bitsandbytes
+faiss_cpu
+chainlit~=1.0.200
+huggingface_hub
+openai~=1.10.0
+llama_index
+sqlalchemy~=2.0.25
+pinecone-client
+
+tqdm~=4.66.1
