@@ -34,20 +34,19 @@ def qa_bot():
     llm = llm_instance.load_llm()
 
     service_context_instance = LoadServiceContext(llm)
-    service_context = service_context_instance.load_service_context(llm)
+    service_context = service_context_instance.load_service_context()
 
     db_engine_instance = DatabaseEngine(service_context)
     sql_database = db_engine_instance.load_db()
-    sql_tool = db_engine_instance.sql_engine(sql_database, service_context)
+    sql_tool = db_engine_instance.sql_engine(sql_database)
 
     vector_engine_instance = VectorEngine(service_context)
     vector_index = vector_engine_instance.load_vector()
-    vector_tool = vector_engine_instance.vector_engine(vector_index, service_context)
+    vector_tool = vector_engine_instance.vector_engine(vector_index)
 
     load_sql_auto_vector_instance = LoadSqlAutoVector(sql_tool, vector_tool, service_context)
 
-    query_engine = load_sql_auto_vector_instance.load_sql_auto_vector_query_engine(sql_tool, vector_tool,
-                                                                                   service_context)
+    query_engine = load_sql_auto_vector_instance.load_sql_auto_vector_query_engine()
     return query_engine
 
 
@@ -86,7 +85,7 @@ async def main(message: cl.Message):
         global eval_instance
         # Start with SQLAutoVectorQueryEngine
         engine = cl.user_session.get("query_engine")  # type: SQLAutoVectorQueryEngine
-        tru_query_engine_recorder = eval_instance.evaluation_llm(engine)
+        tru_query_engine_recorder = eval_instance.evaluation_llm()
         with tru_query_engine_recorder:
             response = await cl.make_async(engine.query)(prompt)
 

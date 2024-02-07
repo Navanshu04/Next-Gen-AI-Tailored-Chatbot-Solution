@@ -8,7 +8,6 @@ from trulens_eval.app import App
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "YOUR KEY HERE"
 openai.api_key = os.environ["OPENAI_API_KEY"]
 tru = Tru()
 openai = OpenAI()
@@ -44,9 +43,9 @@ class EvaluationLlm:
 
         return tru_query_engine_recorder
 
-    def evaluation_llm(self, query_engine):
-        context = self.evaluate(query_engine)
+    def evaluation_llm(self):
+        context = self.evaluate(self.query_engine)
         f_groundedness = self.groundness(context)
         f_qa_relevance = self.relavance()
-        tru_query_engine_recorder = self.logging_app(query_engine, f_groundedness, f_qa_relevance)
+        tru_query_engine_recorder = self.logging_app(self.query_engine, f_groundedness, f_qa_relevance)
         return tru_query_engine_recorder

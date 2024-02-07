@@ -3,7 +3,6 @@ import os
 import openai
 from llama_index.llms import OpenAI
 
-os.environ["OPENAI_API_KEY"] = "YOUR KEY HERE"
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 

@@ -25,10 +25,10 @@ class DatabaseEngine:
         sql_database = SQLDatabase(engine)
         return sql_database
 
-    def sql_engine(self, sql_database, service_context):
+    def sql_engine(self, sql_database):
         sql_query_engine = NLSQLTableQueryEngine(
             sql_database=sql_database, tables=["countries", "departments", "employees", "locations", "jobs", "regions"],
-            service_context=service_context
+            service_context=self.service_context
         )
         sql_tool = QueryEngineTool.from_defaults(
             query_engine=sql_query_engine,
